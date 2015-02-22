@@ -1,0 +1,26 @@
+<a href="/game_equipment/new">New Equipment</a>
+<form method ='get'>
+	<div> search game equipment name</div>
+	<input type='text' name='name_search' />
+	<input type='submit' value='Submit' />
+</form>
+
+<% if @name_search.present? %>
+	<div> You Searched for : <%= @name_search %> </div>
+<% end %>
+
+ <ul>
+    <% @equipments.each do |equipment| %>
+  		<li>Name: <%= equipment.name %>,  
+  			Quantity: <%= equipment.quantity %>, 
+  			Weight:<%= equipment.weight %> 
+  			ID: <%= equipment.id %>
+  			<%= form_tag('/game_equipment/delete', method: :post) do %>
+				<input type="hidden" name="equipment_id" value= '<%= equipment.id %>' />
+				<input type='submit' value="Delete" />
+			<% end %>
+  		</li>
+  	<% end %>
+ </ul>
+
+

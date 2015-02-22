@@ -1,0 +1,5 @@
+<%= form_tag('/music_player/upload', method: :post, :multipart => true ) do %>
+	<p><label>Select File</label> : 
+	<%= file_field_tag 'upload' %></p>
+	<%= submit_tag "Upload" %>
+<% end %>

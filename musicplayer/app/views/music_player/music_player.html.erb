@@ -1,0 +1,22 @@
+<body>
+	<h1>Music Player</h1>
+	<br>
+	<a href="/music_player/upload_file">Upload MP3 Files</a>
+
+	<ul>
+	    <% @musics.each do |music| %>
+	  		<li> 
+	  			<% @name = File.basename(music)
+	  			   @name.sub(/[^\w\.\-]/,'_') %>
+	  			<%= @name %>
+	  			<%= form_tag('/music_player/delete', method: :post) do %>
+					<input type="hidden" name="delete_file_name" value= '<%= @name %>' />
+					<input type='submit' value="Delete" />
+				<% end %>
+	  		</li>
+	  	<% end %>
+ 	</ul>
+</body>
+
+
+

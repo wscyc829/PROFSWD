@@ -1,0 +1,271 @@
+var row = 6;
+var column = 7;
+var box_size = 80;
+var drop_area = box_size;
+var canvas_width = column * box_size;
+var canvas_height = row * box_size + drop_area;
+
+var board = [];
+var mouse_x = 0;
+var mouse_y = 0;
+var margin_left;
+var margin_top;
+var player_turn = 1;
+var isTurnDone = false;
+var winner = 0;
+var target = 4;
+
+var redCircle = new Image();
+redCircle.src = "<%= asset_path('games/red.png') %>";
+
+var blueCircle = new Image();
+blueCircle.src = "<%= asset_path('games/blue.png') %>";
+
+var sprites = [];
+var counter=0;
+function start(canvas_id){
+	var canvas = document.getElementById(canvas_id);
+	var ctx = canvas.getContext("2d");
+	
+	canvas.width = canvas_width;
+	canvas.height = canvas_height;
+	
+	rect = canvas.getBoundingClientRect();
+	margin_left = rect.left;
+	margin_top = rect.top;
+	
+	init();
+	setInterval(function(){loop(ctx);}, 33);
+}
+
+function init(){
+	for(var i=0;i<row;i++){
+		board[i] = [];
+		for(var j=0;j<column;j++){
+			board[i][j] = 0;
+		}
+	}
+	player_turn = 1;
+	winner = 0;
+	isTurnDone = false;
+	sprites = [];
+	counter = 0;
+	document.getElementById("message").innerHTML = "";
+}
+
+function loop(ctx){
+	draw(ctx);
+	update();
+}
+
+function update(){
+	if(winner > 0){
+		var s = "";
+		if(winner == 1 || winner == 2){
+			s = "Player " + player_turn + " win!"
+		}
+		else if(winner == 3){
+			s = "Draw";
+		}
+		document.getElementById("message").innerHTML = s;
+	}
+	else{
+		if(isTurnDone){
+			counter++;
+			player_turn = (player_turn + 2)%2 + 1; 
+			isTurnDone = false;
+		}
+		else{
+			//AI 
+			if(player_turn == 2){
+				AIMove(board, 2);
+				
+				
+			}
+		}
+	}
+	//update the position of circles
+	for(var i=0;i<sprites.length;i++){
+		if(sprites[i].y < sprites[i].dy){
+			sprites[i].y +=100;
+			
+			if(sprites[i].y > sprites[i].dy){
+				sprites[i].y = sprites[i].dy;
+			}
+		}
+	}
+}
+
+function draw(ctx){
+	//clear the canvas
+	ctx.clearRect(0, 0, canvas_width, canvas_height);
+	
+	//draw the game board
+	//draw the horizontal lines
+	for(var i=0;i<row;i++){
+		ctx.moveTo(0, i * box_size + drop_area);
+		ctx.lineTo(canvas_width, i * box_size + drop_area);
+	}
+	//draw the vertical lines
+	for(var i=1;i<column;i++){	
+		ctx.moveTo(i * box_size, drop_area);
+		ctx.lineTo(i * box_size, canvas_height);
+	}
+	ctx.strokeStyle = 'white';
+	ctx.stroke();
+	
+	//draw the undrop circle
+	var x = mouse_x - box_size / 2;
+	var y = mouse_y;
+	
+	if(player_turn == 1){
+		ctx.drawImage(redCircle, x, 0, box_size, box_size);
+	}
+	else if(player_turn == 2){
+		ctx.drawImage(blueCircle, x, 0, box_size, box_size);
+	}
+	
+	//draw the dropped circles
+	for(var i=0;i<sprites.length;i++){
+		sprites[i].Draw(ctx);
+	}
+}
+
+function drop(board, player, cln){
+	
+	for(var rw=row-1;rw>=0;rw--){
+		if(board[rw][cln] == 0){
+			board[rw][cln] = player;
+			
+			if(isWinningMove(board, player, rw, cln)){
+				winner = player;
+			}else if(isBoardFull(board)){
+				winner = 3;
+			}
+			
+			if(player == 1){
+				sprites.push(new Sprite(redCircle, cln * box_size, 0, cln * box_size, rw * box_size + drop_area, box_size, box_size));
+			}
+			else if(player == 2){
+				sprites.push(new Sprite(blueCircle, cln * box_size, 0, cln * box_size, rw * box_size + drop_area, box_size, box_size));
+			}
+			
+			return true;
+		}
+	}
+	
+	return false;
+}
+
+function isWinningMove(board, player, rw, cln){
+	if(checker(board, player, rw, cln, 1, 1) || checker(board, player, rw, cln, -1, 1) ||
+			checker(board, player, rw, cln, 0, 1) || checker(board, player, rw, cln, 1, 0)){
+		return true;		
+	}
+	return false;
+}
+	
+function checker(board, player, r, c, drtX, drtY){
+	var rw,cln,count=1;
+
+	rw = r+drtX;
+	cln = c+drtY;
+	
+    while(rw >= 0 && rw < row && cln >= 0 && cln < column && board[rw][cln] == player){
+	    count++;
+	    rw += drtX;  // Go on to next square in this direction.
+	    cln += drtY;
+    }
+	rw = r - drtX;  // Now, look in the opposite direction.
+	cln = c - drtY;
+	
+    while(rw >= 0 && rw < row && cln >= 0 && cln < column && board[rw][cln] == player) {
+	    count++;
+	    rw -= drtX;   // Go on to next square in this direction.
+	    cln -= drtY;
+    }
+	
+    if(count == target)
+		return true;
+    else
+       	return false;
+}
+
+function isColumnFull(board, cln){
+	for(var i=0;i<row;i++){
+		if(board[i][cln] == 0){
+			return false;
+		}
+	}
+	
+	return true;
+}
+
+function isBoardFull(board){
+	for(var i=0;i<row;i++){
+		for(var j=0;j<column;j++){
+			if(board[i][j] == 0){
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+function AIMove(board, player){
+	var temp;
+	var opponent = (player_turn + 2) % 2 + 1; 
+	
+	for(var cln=0;cln<column;cln++){
+			
+		if(!isColumnFull(board, cln) && !isTurnDone){
+			
+			for(var rw=row-1;rw>=0;rw--){
+				
+				if(board[rw][cln] == 0){
+					
+					temp = cloneBoard(board);
+					temp[rw][cln] = player;
+					if(isWinningMove(temp, player, rw, cln)){
+						drop(board, player, cln);
+						isTurnDone = true;
+						break;
+					}
+					
+					temp = cloneBoard(board);
+					temp[rw][cln] = opponent;
+			
+					if(isWinningMove(temp, opponent, rw, cln)){
+						drop(board, player, cln);
+						isTurnDone = true;
+						break;
+					}
+				}
+			}
+		}
+		
+		if(isTurnDone){
+			break;
+		}
+	}
+				
+	while(!isTurnDone){
+		var cln = Math.floor(Math.random()*column);
+		if(!isColumnFull(board, cln)){
+			drop(board, player_turn, cln);
+			isTurnDone = true;
+		}
+	}
+}
+
+function cloneBoard(board){
+	var copy = [];
+	for(var i =0;i<board.length;i++){
+		copy[i] = [];
+		for(var j=0;j<board[i].length;j++){
+			copy[i][j] = board[i][j];
+		}
+	}
+	
+	return copy;
+}

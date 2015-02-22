@@ -1,0 +1,24 @@
+#connect4_body{
+	background-color:black;
+}
+
+#top_div{
+	width: 100%;
+	height:100px;
+}
+
+#message{
+	color:white;
+}
+
+#myCanvas{
+	
+	border:2px solid white;
+}
+
+<<<<<<< HEAD
+#bot_div{
+
+}
+=======
+>>>>>>> testing
