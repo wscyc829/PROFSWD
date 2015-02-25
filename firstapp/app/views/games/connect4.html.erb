@@ -1,19 +1,17 @@
-<!DOCTYPE html>
-<html>
-	<body id="connect4_body">
+<body id="connect4_body">
 		
-		<div id="top_div">
-			<center>
-				<h1 style="color:white;">Connect 4</h1>
-				<h3 id="message"></h3>
-			</center>
-		</div>
+	<div id="top_div">
+		<a href="/games">Back to games menu</a>
+		<center>
+			<h1 style="color:white;">Connect 4</h1>
+			<h3 id="message"></h3>
+		</center>
+	</div>
 		
-		<div id="bot_div">
-			<center>
-			<canvas id="myCanvas" onmousemove="updateMouseCoords(event)" onclick="mouseOnClicked(event)"/>
-			</center>
-		</div>
-		<script>start('myCanvas');</script>
-	</body>
-</html>
+	<div id="bot_div">
+		<center>
+		<canvas id="myCanvas" onmousemove="updateMouseCoords(event)" onclick="mouseOnClicked(event)"/>
+		</center>
+	</div>
+	<script>start('myCanvas');</script>
+</body>

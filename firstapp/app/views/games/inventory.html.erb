@@ -1,3 +1,5 @@
+<a href="<%= root_path %>">Back to Main Menu</a>
+<br><br>
 <a href="/game_equipment/new">New Equipment</a>
 <form method ='get'>
 	<div> search game equipment name</div>
@@ -14,7 +16,6 @@
   		<li>Name: <%= equipment.name %>,  
   			Quantity: <%= equipment.quantity %>, 
   			Weight:<%= equipment.weight %> 
-  			ID: <%= equipment.id %>
   			<%= form_tag('/game_equipment/delete', method: :post) do %>
 				<input type="hidden" name="equipment_id" value= '<%= equipment.id %>' />
 				<input type='submit' value="Delete" />

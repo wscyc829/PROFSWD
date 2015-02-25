@@ -9,9 +9,8 @@ class User < ActiveRecord::Base
     salt = BCrypt::Engine.generate_salt
     hashed_password = BCrypt::Engine.hash_secret(
   	  password, salt)
-    new_user = User.create(name: name, username: 
-  	  username, password_hash: hashed_password, salt:
-  	  salt)
+    new_user = User.create(name: name, username: username,
+        password_hash: hashed_password, salt: salt)
     new_user
   end
 
