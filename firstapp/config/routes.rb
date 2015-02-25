@@ -1,13 +1,21 @@
 Rails.application.routes.draw do
   root 'application#index'
+
   get 'games' => 'games#index'
+
   get 'games/connect4' => 'games#connect4'
   get 'games/inventory' => 'games#inventory'
+
   get 'game_equipment/new' => 'games#new_game_equipment'
   post 'game_equipment' => 'games#create_game_equipment'
   post 'game_equipment/delete' => 'games#delete_game_equipment'
+
   get 'user/new' => 'games#new_user'
   post 'user' => 'games#create_new_user'
+
+  get 'login' => 'sessions#login_page'
+  post 'login' => 'sessions#login'
+  get 'logout' => 'sessions#logout'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

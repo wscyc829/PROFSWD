@@ -23,10 +23,10 @@ class GamesController < ApplicationController
 	end
 
 	def create_new_user
-	  @user_name = params[:user_name]
-	  @username = params[:username]
-	  @password = params[:password]
-	  @password_confirm = params[:password_confirm]
+	  @user_name = params[:new_user_name]
+	  @username = params[:new_username]
+	  @password = params[:new_password]
+	  @password_confirm = params[:new_password_confirm]
 
 	  User.create_user(@user, @username, @password, @password_confirm)
 	  redirect_to action: :new_user
