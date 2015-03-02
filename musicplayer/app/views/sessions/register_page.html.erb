@@ -1,0 +1,19 @@
+<div id="signupbox" align="center">
+	<div id="elements_container">
+
+		<%= form_tag("/music_player/register", method: :post) do %>
+			<div>Username:</div>
+			<input type="text" name="new_username" />
+
+			<div>Passowrd:</div>
+			<input type="password" name="new_password" />
+
+			<div>Confirm Passowrd:</div>
+			<input type="password" name="new_password_confirm" />
+
+			<br/><input type="submit" value="SIGN UP" />
+			
+		<% end %>
+	</div>
+	<button onclick="location.href = '/music_player/login'">CANCEL</button>
+</div>

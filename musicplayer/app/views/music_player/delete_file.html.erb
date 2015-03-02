@@ -1,4 +1,4 @@
-<%= form_tag('/music_player/delete', method: :post, :multipart => true ) do %>
+<%= form_tag("/music_player/delete", method: :post, :multipart => true ) do %>
 	<p><label>Delete file by name</label> : 
 	<div>Name:</div><input type="text" name="delete_file_name" />
 	<%= submit_tag "Delete" %>

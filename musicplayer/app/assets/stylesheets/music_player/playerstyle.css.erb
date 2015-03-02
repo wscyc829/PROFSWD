@@ -1,0 +1,178 @@
+html {
+	background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ), url("<%= asset_path('music_player/4.jpg') %> ") no-repeat center top fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+#frame {
+	width: 60vw;
+	height: 80vh;
+	max-width: 100%;
+	max-height: 100%;
+	background: linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) );
+	border: 1px solid black;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -40vh;
+	margin-left: -30vw;
+}
+
+#left {
+	float: left;
+	width: 50%;
+	height: 100%;
+}
+
+/* PLAYER AT THE UPPER LEFT */
+
+#controls {
+	background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) );
+	height: 30px;
+	width: 100%;
+}
+
+#controls > button {
+	border: 0px;
+	background-size: 25px 25px;
+	background-repeat: no-repeat;
+	background-position: center;
+	height: 30px;
+	width: 50px;
+}
+
+#controls > button:focus {
+	outline: none;
+}
+
+
+#btnprev {
+	background: url("<%= asset_path('music_player/prev.png') %> ");
+}
+
+#btnplay {
+	background: url("<%= asset_path('music_player/play.png') %> ");
+}
+
+#btnnext {
+	background: url("<%= asset_path('music_player/next.png') %> ");
+}
+
+#player {
+	width: 94%;
+	height: auto;
+	margin-top: 16px;
+	margin-left: 16px;
+}
+
+#songinfo {
+	width: 100%;
+}
+
+#songinfo > p {
+	margin-left: 4px;
+	font-family: 'Cambria';
+	font-size: 18px;
+	color: #FFFFFF;
+}
+
+#album {
+	margin-left: 6px;
+	font-family: 'Segoe UI', sans-serif;
+	font-size: 16px;
+	color: #ecf0f1;
+}
+
+/* END OF PLAYER AT THE UPPER RIGHT */
+/* LIST OF PLAYLISTS */
+
+#divplaylist {
+	width: 94%;
+	height: 65%;
+	max-height: none;
+	padding-left: 16px;
+	overflow-y: scroll;
+}
+
+#tableplaylist {
+	width: 98%;
+	font-family: ''Segoe UI'', sans-serif;
+	font-size: 16px;
+	color: #FFFFFF;
+}
+
+#tableplaylist td {
+	background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) );
+	height: 49px;
+	padding-left: 16px;
+}
+
+#tableplaylist td:hover {
+	background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) );
+}
+
+#tableplaylist td:active {
+	background: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) );
+}
+
+/* END OF LIST OF PLAYLISTS */
+/* BEGIN SCROLL BAR */
+
+::-webkit-scrollbar {
+	width: 12px;
+}
+::-webkit-scrollbar-track {
+	background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) );
+}
+::-webkit-scrollbar-thumb {
+	background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) );
+}
+::-webkit-scrollbar-thumb:hover {  
+	background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) );
+}
+
+/* END OF SCROLL BAR */
+/* SONG LIST AT THE RIGHT SIDE */
+
+#rightlist {
+	float: right;
+	width: 50%;
+	height: 100%;
+	overflow-y: scroll;
+}
+
+#tablesongs {
+	width: 96%;
+	height: 49px;
+	font-family: 'Cambria';
+	font-size: 18px;
+	color: #FFFFFF;
+	margin-top: 16px;
+	margin-bottom: 16px;
+	margin-left: 8px;
+}
+
+#tablesongs td {
+	background: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) );
+	height: 49px;
+	padding-left: 16px;
+}
+
+#tablesongs td:hover {
+	background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) );
+}
+
+#tablesongs td:active {
+	background: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) );
+}
+
+.artist { 
+	font-family: 'Segoe UI', serif;
+	font-size: 16px;
+	vertical-align: middle middle;
+	font-style: italic;
+}
+
+/* END OF SONG LIST AT THE RIGHT SIDE */

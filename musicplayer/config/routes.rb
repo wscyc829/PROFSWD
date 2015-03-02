@@ -1,11 +1,26 @@
 Rails.application.routes.draw do
-  root 'music_player#music_player'
+  root 'application#index'
 
+  get 'music_player/login' => 'sessions#login_page'
+  post 'music_player/login' => 'sessions#login'
+  get 'music_player/logout' => 'sessions#logout'
+
+  get 'music_player/register' => 'sessions#register_page'
+  post 'music_player/register' => 'sessions#register'
+
+  get 'music_player' => 'music_player#music_player'
+
+  get 'music_player/upload' => 'music_player#upload_page'
   post 'music_player/upload' => 'music_player#upload'
-  get 'music_player/upload_file' => 'music_player#upload_file'
+  
+  post 'music_player/add_song_to_playlist' => 'music_player#add_song_to_playlist'
 
-  post 'music_player/delete' => 'music_player#delete'
+  post 'music_player/switch_playlist' => 'music_player#switch_playlist'
+  post 'music_player/delete_song' => 'music_player#delete_song'
 
+  post 'music_player/create_new_playlist' => 'music_player#create_new_playlist'
+
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
