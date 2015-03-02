@@ -120,7 +120,6 @@ class MusicPlayerController < ApplicationController
 
     song = Song.searchBySongId(song_id).first
 
-    Song.where(id: song_id).first.destroy
     Playlist.where(song_id: song_id).first.destroy
 
     redirect_to '/music_player'

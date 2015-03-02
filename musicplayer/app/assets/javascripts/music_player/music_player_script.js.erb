@@ -4,25 +4,40 @@ jQuery(document).ready(function() {
     var song;
 
     function initAudio(elem) {
-        var url = elem.attr('url')
-        $('.title').text('Title: '+elem.attr('title'));
-        $('.artist').text('Artist: '+elem.attr('artist'));
-        $('.album').text('Album: '+elem.attr('album'));
+        $('#tablesongs li').css("border","none");
+        if(elem.length > 0){
+            elem.css("border","1px solid red");
+            var url = elem.attr('url')
+            $('.title').text('Title: '+elem.attr('title'));
+            $('.artist').text('Artist: '+elem.attr('artist'));
+            $('.album').text('Album: '+elem.attr('album'));
+            $('.duration').text('Duration: '+ parseToTime(0));
+            $('.curtime').text('Current Time: '+parseToTime(0));
 
-        song = new Audio( <%= asset_path("data/")%> + url);
+            song = new Audio( <%= asset_path("data/")%> + url);
 
-       
-        song.addEventListener('loadedmetadata', function() {
-            $('.duration').text('Duration: '+ parseToTime(song.duration));
-            var curtime = parseInt(song.currentTime, 10);
-            $('.curtime').text('Current Time: '+parseToTime(curtime));
-        });
-        // timeupdate event listener
-        song.addEventListener('timeupdate',function (){
-            var curtime = parseInt(song.currentTime, 10);
-            $('.curtime').text('Current Time: '+parseToTime(curtime));
-        });
-    
+
+            // set volume
+            song.volume = 0.8;
+
+            song.addEventListener('loadedmetadata', function() {
+                $('.duration').text('Duration: '+ parseToTime(song.duration));
+                var curtime = parseInt(song.currentTime, 10);
+                $('.curtime').text('Current Time: '+parseToTime(curtime));
+            });
+            // timeupdate event listener
+            song.addEventListener('timeupdate',function (){
+                var curtime = parseInt(song.currentTime, 10);
+                $('.curtime').text('Current Time: '+parseToTime(curtime));
+            });
+        }
+        else{
+            $('.title').text('Title: ');
+            $('.artist').text('Artist: ');
+            $('.album').text('Album: ');
+            $('.duration').text('Duration: '+ parseToTime(0));
+            $('.curtime').text('Current Time: '+parseToTime(0));
+        }
     }
     
     function playAudio() {
@@ -31,7 +46,6 @@ jQuery(document).ready(function() {
 
     function stopAudio() {
         song.pause();
-        song = null
     }
 
     // play click
@@ -46,6 +60,15 @@ jQuery(document).ready(function() {
         e.preventDefault();
         
         stopAudio();
+    });
+
+    // stop click
+    $('#btnstop').click(function (e) {
+        e.preventDefault();
+        
+        stopAudio();
+
+        song.currentTime = 0;
     });
 
     // forward click
@@ -80,6 +103,8 @@ jQuery(document).ready(function() {
         e.preventDefault();
         stopAudio();
         initAudio($(this));
+
+        element = $(this)
     });
 
 
@@ -87,8 +112,6 @@ jQuery(document).ready(function() {
     initAudio($('#tablesongs li:first-child'));
 
 
-    // set volume
-    song.volume = 0.8;
 
 
     function parseToTime(sec){
