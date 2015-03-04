@@ -55,18 +55,21 @@
 		</div>
 		
 		<div id="rightlist">
-			<ul id="tablesongs">
+			<ul>
 				<%= form_tag("/music_player/upload", method: :post, :multipart => true ) do %>
 					<li>
 						<label for="btnupload" class="area">Upload a song
 						<%= file_field_tag "upload", "onchange"=>"this.form.submit()", "accept"=>"audio/mp3",
 							"id"=>"btnupload","style"=>"display:none" %>
 						</label>
-					</li>
-				<% end %>
+				</li>
+			<% end %>
+			</ul>
+			<ul id="tablesongs">
+				
 				<% @songs.each do |song| %>
-					<li title="<%= song.title %>" artist="<%= song.artist %>" album="<%= song.album %>" url="<%= song.url %>">
-						<div id="area-<%= song.id %>" class="area" >
+					<li title="<%= song.title %>" artist="<%= song.artist %>" album="<%= song.album %>" url="<%= song.url %>" id="area-<%= song.id %>" class="area">
+						<div  >
 							<%= song.title %>
 							<!-- CONTEXT MENU -->
 							<ul id="context-menu-<%= song.id %>" class="audero-context-menu">
