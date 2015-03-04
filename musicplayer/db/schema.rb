@@ -13,6 +13,11 @@
 
 ActiveRecord::Schema.define(version: 20150301110342) do
 
+  create_table "data_files", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "playlist_lists", force: :cascade do |t|
     t.string   "playlist_name", limit: 255
     t.datetime "created_at",                null: false

@@ -4,9 +4,9 @@ jQuery(document).ready(function() {
     var song;
 
     function initAudio(elem) {
-        $('#tablesongs li').css("border","none");
+        $('#tablesongs li').css("background-color","rgba(0, 0, 0, 0.2)");
         if(elem.length > 0){
-            elem.css("border","1px solid red");
+            elem.css("background-color","rgba(255, 255, 255, 0.3)");
             var url = elem.attr('url')
             $('.title').text('Title: '+elem.attr('title'));
             $('.artist').text('Artist: '+elem.attr('artist'));

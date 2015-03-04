@@ -1,13 +1,18 @@
-<h3>Login</h3>
-<%= form_tag("/music_player/login", method: :post) do %>
-	<div id="elements_container">
-		<div> Username: </div> 
-		<input type="text" name="username" />
-		<div> Password： </div> 
-		<input type="password" name="password" />
-		</br> <input type="submit" value="LOGIN" />
-	</div>
-<% end %>
+<div id="parent_login_div">
+  <div id="login_container" align="center">
+    <div id="login_innerbox">
 
-</br>
-<button onclick="location.href = '/music_player/register'">REGISTER</button>
+      <%= form_tag("/music_player/login", method: :post) do %>
+        <div>Username</div>
+        <input type="text" name="username" class="inputtextbox" />
+        
+        <div>Password</div>
+        <input type="password" name="password" class="inputtextbox" />
+        
+        <input type="submit" value="LOGIN" class="inputbutton" />
+        <input type="button" value="REGISTER" onclick="location.href = '/music_player/register'" class="inputbutton" />
+      <% end %>
+      
+    </div>
+  </div>
+</div>
