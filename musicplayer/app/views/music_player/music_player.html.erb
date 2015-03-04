@@ -69,7 +69,7 @@
 				
 				<% @songs.each do |song| %>
 					<li title="<%= song.title %>" artist="<%= song.artist %>" album="<%= song.album %>" url="<%= song.url %>" id="area-<%= song.id %>" class="area">
-						<div  >
+						<div >
 							<%= song.title %>
 							<!-- CONTEXT MENU -->
 							<ul id="context-menu-<%= song.id %>" class="audero-context-menu">
