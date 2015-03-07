@@ -29,20 +29,6 @@ class MusicPlayerController < ApplicationController
 
   end
 
-  def play
-   
-  end
-
-  def next
-
-  end
-
-  def previous
-  end
-
-  def pause
-  end
-
   def upload
 
     if !params[:upload].blank? && session[:playlist_id] != nil
